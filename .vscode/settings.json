@@ -1,7 +1,7 @@
 {
     "licenser.license": "Custom",
     "licenser.customHeader": "Copyright (C) @YEAR@ Intel Corporation\nSPDX-License-Identifier: MIT",
-    "licenser.author": "SWE-Team2",
+    "licenser.author": "Fvesta",
     "editor.tabSize": 2,
     "editor.fontSize": 13,
     "[javascript][typescript][typescriptreact][json]": {
