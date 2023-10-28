@@ -6,7 +6,7 @@ import './ErrorPage.scss';
 import { useRouteError } from 'react-router-dom';
 
 // When page not found
-const ErrorPage = () => {
+function ErrorPage() {
   const error = useRouteError();
   console.error(error);
 
@@ -16,6 +16,6 @@ const ErrorPage = () => {
       <p>Not found</p>
     </div>
   );
-};
+}
 
 export default ErrorPage;

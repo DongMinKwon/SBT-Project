@@ -6,7 +6,7 @@ import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 
 // For entire layout
-const Layout = () => {
+function Layout() {
   return (
     <div id="layout">
       <Header />
@@ -14,6 +14,6 @@ const Layout = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Layout;
