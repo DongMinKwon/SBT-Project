@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import '@/base.scss';
+import '@/Global.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from '@/pages/Home';
-import Layout from '@/Layout';
 import ErrorPage from '@/pages/ErrorPage';
+import AdminLayout from './components/admin/AdminLayout';
+import Admin from './pages/Admin';
 
 if (process.env.NODE_ENV === 'production') {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -20,14 +22,19 @@ if (process.env.NODE_ENV === 'production') {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Admin />,
+        errorElement: <ErrorPage />,
       },
     ],
-    errorElement: <ErrorPage />,
   },
 ]);
 
