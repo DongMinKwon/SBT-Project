@@ -1,0 +1,22 @@
+// Copyright (C) 2023 Intel Corporation
+// SPDX-License-Identifier: MIT
+
+@import '@/base.scss';
+
+.admin-layout {
+  color: $main-bg-color;
+  background-color: black;
+}
+
+.admin-main {
+  padding-inline: 2rem;
+  min-height: calc(100vh - #{$admin-header-height} - #{$admin-footer-height});
+  display: grid;
+  place-items: center;
+
+  &__container {
+    max-width: 990px;
+    width: 100%;
+    height: 100%;
+  }
+}

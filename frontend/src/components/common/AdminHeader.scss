@@ -1,0 +1,44 @@
+// Copyright (C) 2023 Intel Corporation
+// SPDX-License-Identifier: MIT
+@import '@/base.scss';
+
+.admin-header {
+  color: $point-color;
+  position: sticky;
+  top: 0;
+
+  height: $admin-header-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 2rem;
+
+  background-color: rgba(0, 0, 0, 0.9);
+
+  &:focus-visible {
+    outline: $point-color auto 1px;
+  }
+
+  &__container {
+    max-width: 990px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__home-button {
+    color: $point-color;
+  }
+
+  &__connect-button {
+    padding: 1rem;
+    cursor: pointer;
+  }
+}
+
+// .admin-page-header {
+//   font-size: 1.4rem;
+//   padding-block: 1rem;
+//   border-bottom: 1px solid $footer-color;
+// }

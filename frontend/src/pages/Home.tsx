@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import './Home.scss';
+import Header from '@/components/common/Header';
 
 export default function Home() {
   return (
     <div className="landing">
+      <Header />
       <div className="landing__main">
         <div className="landing__scroll1">
           <h1 className="landing__h1__right">
