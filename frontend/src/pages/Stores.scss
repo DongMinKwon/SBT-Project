@@ -1,0 +1,84 @@
+// Copyright (C) 2023 Intel Corporation
+// SPDX-License-Identifier: MIT
+
+@import "@/base.scss";
+
+.semi-title {
+  margin: 3rem 0 2rem;
+}
+
+.admin-store {
+  &__collection-list {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  &__create-collection {
+    transform: translate(5px, 5px);
+    width: 200px;
+    height: 200px;
+    border: 2px solid $footer-color;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+
+    & > span {
+      position: absolute; /*어떤 요소에 absolute를 주면 블럭요소는 inline으로 변경됨.*/
+      background-color: #fff;
+      width: 190px;
+      color: #000;
+      bottom: -70px;
+      text-align: center;
+      padding: 10px;
+      border-radius: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: 0.5s;
+      visibility: hidden;
+    }
+    & > span:after {
+      content: "";
+      position: absolute;
+      background-color: #fff;
+      width: 10px;
+      height: 10px;
+      transform: rotate(45deg) translateX(-50%);
+      top: 0px;
+      left: 50%;
+    }
+    &:hover span {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &::after {
+      content: "";
+      width: 60px;
+      height: 2px;
+      background-color: $footer-color;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &::before {
+      content: "";
+      width: 60px;
+      height: 2px;
+      background-color: $footer-color;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateZ(90deg);
+    }
+  }
+  @media screen and (max-width: 496px) {
+    &__collection-list {
+      justify-content: center;
+    }
+    &__create-collection {
+      margin-bottom: 2rem;
+    }
+  }
+}
