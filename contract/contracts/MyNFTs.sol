@@ -1,11 +1,11 @@
-//Contract based on [<https://docs.openzeppelin.com/contracts/3.x/erc721>](<https://docs.openzeppelin.com/contracts/3.x/erc721>)
+//Contract based on [<https://docs.klaytn.com/contracts/3.x/erc721>](<https://docs.klaytn.com/contracts/3.x/erc721>)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@klaytn/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/@klaytn/contracts/utils/Counters.sol";
+import "../node_modules/@klaytn/contracts/access/Ownable.sol";
+import "../node_modules/@klaytn/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract MyNFTs is ERC721URIStorage, Ownable {
   using Counters for Counters.Counter;

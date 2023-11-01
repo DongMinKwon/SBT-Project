@@ -1,5 +1,6 @@
 // Copyright (C) 2023 Intel Corporation
 // SPDX-License-Identifier: MIT
+@import '@/base.scss';
 
 * {
   margin: 0;
@@ -9,4 +10,11 @@
 
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-size: $text-size;
+  font-family: $font-eng-mono;
+  scroll-behavior: smooth;
 }

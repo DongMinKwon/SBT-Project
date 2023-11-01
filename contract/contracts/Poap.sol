@@ -1,11 +1,11 @@
-//Contract based on [<https://docs.openzeppelin.com/contracts/3.x/erc721>](<https://docs.openzeppelin.com/contracts/3.x/erc721>)
+//Contract based on [<https://docs.klaytn.com/contracts/3.x/erc721>](<https://docs.klaytn.com/contracts/3.x/erc721>)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@klaytn/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/@klaytn/contracts/utils/Counters.sol";
+import "../node_modules/@klaytn/contracts/access/Ownable.sol";
+import "../node_modules/@klaytn/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "./Sbt.sol";
 import "./Pausable.sol";
 
@@ -195,7 +195,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     address from,
     address to,
     uint256 tokenId
-  ) public override(ERC721, IERC721) isUnLocked(tokenId) whenNotPaused {
+  ) public override(ERC721) isUnLocked(tokenId) whenNotPaused {
     super.safeTransferFrom(from, to, tokenId);
   }
 
@@ -204,7 +204,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     address to,
     uint256 tokenId,
     bytes memory data
-  ) public override(ERC721, IERC721) isUnLocked(tokenId) whenNotPaused {
+  ) public override(ERC721) isUnLocked(tokenId) whenNotPaused {
     super.safeTransferFrom(from, to, tokenId, data);
   }
 
@@ -212,7 +212,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     address from,
     address to,
     uint256 tokenId
-  ) public override(ERC721, IERC721) isUnLocked(tokenId) whenNotPaused {
+  ) public override(ERC721) isUnLocked(tokenId) whenNotPaused {
     super.transferFrom(from, to, tokenId);
   }
 

@@ -7,6 +7,8 @@ export interface TestState {
   count: RecoilState<number>;
 }
 
-export interface JavaState {
-  result: RecoilState<any>;
+export interface LoginState {
+  type: RecoilState<string>;
+  account: RecoilState<string>;
+  accessToken: RecoilState<string>;
 }

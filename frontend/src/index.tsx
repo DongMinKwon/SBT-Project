@@ -9,6 +9,9 @@ import Home from '@/pages/Home';
 import ErrorPage from '@/pages/ErrorPage';
 import AdminLayout from './components/admin/AdminLayout';
 import Admin from './pages/Admin';
+import LandingLogin from './pages/LandingLogin';
+import Stores from './pages/Stores';
+import CreateStore from './pages/CreateStore';
 
 if (process.env.NODE_ENV === 'production') {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -32,9 +35,22 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Admin />,
-        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'stores',
+        element: <Stores />,
+      },
+      {
+        path: 'create-store',
+        element: <CreateStore />,
       },
     ],
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/login',
+    element: <LandingLogin />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
