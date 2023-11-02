@@ -48,4 +48,21 @@ export class ChainService {
       return null;
     }
   }
+
+  async mintToken(receiver: string, storeName: string) {
+    if (!sbtContract) {
+      await setKeyring();
+    }
+    try {
+      const result = await sbtContract.methods
+        .mintToken(receiver, storeName)
+        .send({ from: process.env.SERVER_ADDR, gas: 1000000 });
+
+      const { tokenId, createdAt } = result.events.MintToken.returnValues;
+      return { tokenId, createdAt };
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
 }

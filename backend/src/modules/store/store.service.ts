@@ -11,12 +11,12 @@ import { ChainService } from '../chain/chain.service';
 export class StoreService {
   constructor(private readonly chainService: ChainService) {}
 
-  async getStore(id: number, res: Response): Promise<Response> {
+  async getStore(storeId: string, res: Response): Promise<Response> {
     let store;
     try {
       store = await prisma.store.findUnique({
         where: {
-          id: id,
+          shop_name: storeId,
         },
       });
     } catch (error) {

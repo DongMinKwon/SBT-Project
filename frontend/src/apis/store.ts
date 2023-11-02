@@ -16,11 +16,11 @@ export async function getUserStores(address: string): Promise<any> {
   }
 }
 
-export async function getStore(id: number): Promise<any> {
+export async function getStore(storeId: string): Promise<any> {
   let res = null;
 
   try {
-    res = await axios.get(`/stores/${id}`);
+    res = await axios.get(`/stores/${storeId}`);
 
     return res?.data;
   } catch (err) {

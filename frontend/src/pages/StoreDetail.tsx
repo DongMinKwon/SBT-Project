@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { useRecoilValue } from 'recoil';
-import axios from 'axios';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import loginState from '@/recoil/atoms/LoginState';
@@ -13,8 +12,8 @@ import { getStore } from '@/apis/store';
 import { Store } from './Stores';
 
 function StoreDetail() {
-  const match = useMatch('/admin/stores/:id');
-  const id: number | null = match?.params.id ? +match.params.id : null;
+  const match = useMatch('/admin/stores/:store_id');
+  const storeId = match?.params.store_id;
   const accessToken = useRecoilValue(loginState.accessToken);
   const account = useRecoilValue(loginState.account);
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ function StoreDetail() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getStore(id as number);
+      const res = await getStore(storeId as string);
       const { store } = res;
       setStoreData(store);
     }
@@ -40,7 +39,7 @@ function StoreDetail() {
     } catch (err) {
       console.warn(err);
     }
-  }, [id, account, accessToken]);
+  }, [storeId, account, accessToken]);
 
   return (
     <div className="store-detail">
@@ -76,7 +75,7 @@ function StoreDetail() {
           />
           {/* <Image className="qrexample" src="/images/didyoueatqr.png" alt="qrexample" width={230} height={230}></Image> */}
           <QRCodeSVG
-            value={`${process.env.CLIENT_URL}/boomlogin?admin_address=${account}&store_name=${id}`}
+            value={`http://localhost:3000/login?mint=true&store_name=${storeData.shop_name}`}
             size={230}
             bgColor="#000000"
             fgColor="#daff5b"

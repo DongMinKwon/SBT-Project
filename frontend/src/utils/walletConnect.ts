@@ -3,10 +3,12 @@
 
 import { Web3Auth } from '@web3auth/modal';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useNavigate } from 'react-router-dom';
 import loginState from '@/recoil/atoms/LoginState';
 import { getNonce, metaLogin } from '@/apis/auth';
+import { mintToken } from '@/apis/token';
 
 export const connectWeb3 = async (): Promise<boolean> => {
   const web3auth = new Web3Auth({
@@ -39,9 +41,15 @@ export const connectWeb3 = async (): Promise<boolean> => {
   }
 };
 
-export const useConnectMeta = (): [() => Promise<void>, string, string] => {
+export const useConnectMeta = (
+  isMint: string | null,
+  storeName: string | null,
+): [() => Promise<void>, string, string, boolean] => {
+  const [isMeta, setIsMeta] = useState(false);
   const [account, setAccount] = useRecoilState<string>(loginState.account);
   const [accessToken, setAccessToken] = useRecoilState(loginState.accessToken);
+  const [isMinting, setIsMinting] = useState(false);
+  const navigate = useNavigate();
 
   const connect = useCallback(async () => {
     if (!window.ethereum) {
@@ -49,6 +57,8 @@ export const useConnectMeta = (): [() => Promise<void>, string, string] => {
         'https://metamask.app.link/dapp/ff94-114-200-143-209.ngrok-free.app';
       throw new Error('MetaMask is not installed!');
     }
+
+    setIsMeta(true);
 
     try {
       const nonce = await getNonce();
@@ -69,5 +79,37 @@ export const useConnectMeta = (): [() => Promise<void>, string, string] => {
     }
   }, []);
 
-  return [connect, account, accessToken];
+  useEffect(() => {
+    async function mint() {
+      try {
+        const res = await mintToken(account, storeName as string);
+        const { token } = res;
+
+        setIsMinting(false);
+        setIsMeta(false);
+        if (res) {
+          navigate(`/boom?token_id=${token?.id}`);
+        }
+      } catch (err) {
+        console.log(err);
+        setIsMinting(false);
+        setIsMeta(false);
+      }
+    }
+
+    if (!isMeta) return;
+
+    if (account && accessToken) {
+      if (isMint === 'true') {
+        console.log('start mint');
+        setIsMinting(true);
+        mint();
+      } else {
+        setIsMeta(false);
+        navigate(-1);
+      }
+    }
+  }, [account, accessToken]);
+
+  return [connect, account, accessToken, isMinting];
 };

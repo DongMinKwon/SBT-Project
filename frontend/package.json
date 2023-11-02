@@ -20,7 +20,9 @@
     "node-sass": "^7.0.3",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
+    "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.7",
@@ -51,6 +53,7 @@
   },
   "devDependencies": {
     "@types/navermaps": "^3.7.2",
+    "@types/react-modal": "^3.16.2",
     "buffer": "^6.0.3",
     "eslint": "^8.50.0",
     "eslint-config-airbnb": "^19.0.4",

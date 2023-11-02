@@ -7,8 +7,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Store" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "shop_name" TEXT NOT NULL,
+    "shop_name" TEXT NOT NULL PRIMARY KEY,
     "meta_uri" TEXT NOT NULL,
     "image_uri" TEXT NOT NULL,
     "coord" TEXT NOT NULL DEFAULT '[]',
@@ -21,11 +20,8 @@ CREATE TABLE "Store" (
 CREATE TABLE "Token" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "created_at" TEXT NOT NULL,
-    "store_id" INTEGER NOT NULL,
+    "store_id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
-    CONSTRAINT "Token_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Token_store_id_fkey" FOREIGN KEY ("store_id") REFERENCES "Store" ("shop_name") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Token_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User" ("address") ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Token_store_id_key" ON "Token"("store_id");

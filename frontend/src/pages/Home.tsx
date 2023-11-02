@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import './Home.scss';
+import { useRecoilValue } from 'recoil';
 import Header from '@/components/common/Header';
+import loginState from '@/recoil/atoms/LoginState';
 
 export default function Home() {
+  const account = useRecoilValue(loginState.account);
+  const accessToken = useRecoilValue(loginState.accessToken);
   return (
     <div className="landing">
       <Header />
@@ -141,11 +145,20 @@ export default function Home() {
           </div>
         </div>
         <div className="landing__scroll5">
-          <Link to="/landinglogin">
-            <button type="button" className="landing__getStarted">
-              get started
-            </button>
-          </Link>
+          {account && accessToken ? (
+            <Link to="/users">
+              <button type="button" className="landing__getStarted">
+                get started
+              </button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button type="button" className="landing__getStarted">
+                get started
+              </button>
+            </Link>
+          )}
+
           <Link to="/admin" className="landing__shopOwner">
             are you a shop owner?
           </Link>

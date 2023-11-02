@@ -13,6 +13,8 @@ import LandingLogin from './pages/LandingLogin';
 import Stores from './pages/Stores';
 import CreateStore from './pages/CreateStore';
 import StoreDetail from './pages/StoreDetail';
+import Tokens from './pages/Tokens';
+import Boom from './pages/Boom';
 
 if (process.env.NODE_ENV === 'production') {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -30,6 +32,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: '/users',
+    element: <Tokens />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/boom',
+    element: <Boom />,
+  },
+  {
     path: '/admin',
     element: <AdminLayout />,
     children: [
@@ -42,7 +53,7 @@ const router = createBrowserRouter([
         element: <Stores />,
       },
       {
-        path: 'stores/:id',
+        path: 'stores/:store_id',
         element: <StoreDetail />,
       },
       {
