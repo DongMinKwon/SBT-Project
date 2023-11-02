@@ -5,7 +5,6 @@ import { Web3Auth } from '@web3auth/modal';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useCallback } from 'react';
 import { ethers } from 'ethers';
-
 import loginState from '@/recoil/atoms/LoginState';
 import { getNonce, metaLogin } from '@/apis/auth';
 
@@ -46,6 +45,8 @@ export const useConnectMeta = (): [() => Promise<void>, string, string] => {
 
   const connect = useCallback(async () => {
     if (!window.ethereum) {
+      window.location.href =
+        'https://metamask.app.link/dapp/ff94-114-200-143-209.ngrok-free.app';
       throw new Error('MetaMask is not installed!');
     }
 

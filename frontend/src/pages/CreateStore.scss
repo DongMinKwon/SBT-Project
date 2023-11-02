@@ -22,7 +22,6 @@
     max-width: 990px;
     margin: auto;
     padding: 40px 0 15px;
-    text-align: center;
   }
   &__title {
     margin-bottom: 20px;
@@ -53,7 +52,6 @@
     width: 90%;
     min-width: 20vw;
     transition: max-height 1s ease;
-    text-align: center;
     &:has(.create-store-date) {
       padding: 5px 0;
     }

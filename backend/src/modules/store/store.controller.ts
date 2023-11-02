@@ -1,7 +1,15 @@
 // Copyright (C) 2023 Intel Corporation
 // SPDX-License-Identifier: MIT
 
-import { Controller, Get, Param, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { StoreService } from './store.service';
 import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -17,5 +25,10 @@ export class StoreController {
     @Res() res: Response,
   ): Promise<Response> {
     return this.storeService.getStores(address, res);
+  }
+
+  @Post()
+  createStores(@Body() data, @Res() res: Response): Promise<Response> {
+    return this.storeService.createStores(data, res);
   }
 }
