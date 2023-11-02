@@ -40,4 +40,23 @@ export class UserService {
 
     return res.status(200).json({ storeList });
   }
+
+  async getUserTokens(address: string, res: Response): Promise<Response> {
+    let tokenList;
+    try {
+      tokenList = await prisma.token.findMany({
+        distinct: ['store_id'],
+        include: {
+          store: true,
+        },
+        where: {
+          user_id: address,
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(200).json({ tokenList });
+  }
 }

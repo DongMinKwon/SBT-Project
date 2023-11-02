@@ -25,7 +25,7 @@ function Admin() {
       <div className="admin-heading">
         <div className="admin-heading__container">
           <h1 className="admin-heading__h1">
-            Introducing the new <br /> SBT and DID information offering system.
+            Introducing the new <br /> SBT and Food collection offering system.
           </h1>
           <div className="admin-button__container">
             <div
@@ -33,7 +33,7 @@ function Admin() {
               onClick={startClick}
               role="presentation"
             >
-              Start using &quot;Did You Eat&quot; system
+              Start using &quot;Food GO&quot; system
             </div>
           </div>
         </div>

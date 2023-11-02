@@ -7,7 +7,7 @@ import './Sbt.scss';
 export default function SBT(props: { id: number; imgUrl: string }) {
   const { id, imgUrl } = props;
   return (
-    <Link to={`/tokens/detail/${id}`}>
+    <Link to={`/tokens/${id}`}>
       <div className="token__col1">
         <img alt="SBT" src={imgUrl} width={70} height={70} />
       </div>

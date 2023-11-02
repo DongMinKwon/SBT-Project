@@ -7,49 +7,29 @@ import Header from '@/components/common/Header';
 import SBT from '@/components/user/Sbt';
 
 import './Tokens.scss';
+import { getUserTokens } from '@/apis/token';
+import { Token } from './Boom';
 
 export default function Collection() {
   const account = useRecoilValue(loginState.account);
   const accessToken = useRecoilValue(loginState.accessToken);
-  const [tokenList, setTokenList] = useState([]);
+  const [tokenData, setTokenData] = useState<Token[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken) {
-      navigate('/login');
-      // alert("Please Login!");
+    async function fetchData() {
+      const res = await getUserTokens(account);
+      const { tokenList } = res;
+      setTokenData(tokenList);
     }
-  }, []);
 
-  // useEffect(() => {
-  //   if (connected) {
-  //     axios
-  //       .get(`${process.env.SERVER_URL}/tokens/${account?.address}`)
-  //       .then((res) => res.data)
-  //       .then((res) => {
-  //         console.log(res);
-  //         if (res.status === 'success') {
-  //           setTokenList(res.message.token_lists);
-  //           console.log(res.message);
-  //         }
-  //       });
-  //   }
-  // }, [connected]);
-
-  // useEffect(() => {
-  //   if (clientEmail) {
-  //     axios
-  //       .get(`${process.env.SERVER_URL}/tokens/email/${clientEmail}`)
-  //       .then((res) => res.data)
-  //       .then((res) => {
-  //         console.log(res);
-  //         if (res.status === 'success') {
-  //           setTokenList(res.message.token_lists);
-  //           console.log(res.message);
-  //         }
-  //       });
-  //   }
-  // }, [clientEmail]);
+    if (!accessToken || !account) navigate('/login');
+    try {
+      fetchData();
+    } catch (err) {
+      console.warn(err);
+    }
+  }, [account, accessToken]);
 
   return (
     <div className="token">
@@ -57,11 +37,17 @@ export default function Collection() {
       <div className="landing__main">
         <h1 className="token__h1">My Collection</h1>
         <div className="token__row">
-          {/* {tokenList
-            ? tokenList.map((token) => {
-                return <SBT key={token.id} id={token.id} imgUrl={token.uri} />;
+          {tokenData
+            ? tokenData.map((token) => {
+                return (
+                  <SBT
+                    key={token.id}
+                    id={token.id}
+                    imgUrl={token.store.image_uri}
+                  />
+                );
               })
-            : "You don't have a token yet."} */}
+            : "You don't have a token yet."}
         </div>
       </div>
     </div>

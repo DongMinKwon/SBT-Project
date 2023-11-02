@@ -37,3 +37,15 @@ export async function getToken(tokenId: number): Promise<any> {
     throw new Error('Failed to mint Token');
   }
 }
+
+export async function getUserTokens(address: string): Promise<any> {
+  let res = null;
+
+  try {
+    res = await axios.get(`/users/${address}/tokens`);
+
+    return res?.data;
+  } catch (err) {
+    throw new Error('Failed to get Stores');
+  }
+}

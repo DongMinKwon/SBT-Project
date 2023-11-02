@@ -12,7 +12,7 @@ import loginState from '@/recoil/atoms/LoginState';
 
 import { Store } from './Stores';
 
-interface Token {
+export interface Token {
   id: number;
   created_at: string;
   store: Store;

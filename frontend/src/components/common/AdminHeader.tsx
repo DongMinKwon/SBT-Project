@@ -12,7 +12,7 @@ export default function AdminHeader() {
     <nav className="admin-header">
       <div className="admin-header__container">
         <Link to="/admin">
-          <div className="admin-header__home-button">Did You Eat?</div>
+          <div className="admin-header__home-button">Food GO</div>
         </Link>
         {accessToken ? (
           <div
