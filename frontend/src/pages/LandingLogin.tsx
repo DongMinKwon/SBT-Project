@@ -35,7 +35,7 @@ export default function LandingLogin() {
         <>
           <div className="qr-mint__header">
             <Link to="/" className="header__h1">
-              DID You Eat?
+              Food GO
             </Link>
           </div>
           <div className="qr-mint__container">

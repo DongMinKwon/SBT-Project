@@ -9,8 +9,7 @@ export default function AdminFooter() {
       {/* <div className="admin-footer-header">{children}</div> */}
       <div className="admin-footer__container">
         <div className="admin-footer__note">
-          Copyright © 2023{' '}
-          <span className="admin-footer__logo">Did You Eat?</span>
+          Copyright © 2023 <span className="admin-footer__logo">Food GO</span>
           All rights reserved.
         </div>
         <div className="admin-footer__items">

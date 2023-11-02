@@ -16,4 +16,12 @@ export class UserController {
   ): Promise<Response> {
     return this.userService.getUserStores(address, res);
   }
+
+  @Get(':address/tokens')
+  getTokens(
+    @Param('address') address: string,
+    @Res() res: Response,
+  ): Promise<Response> {
+    return this.userService.getUserTokens(address, res);
+  }
 }

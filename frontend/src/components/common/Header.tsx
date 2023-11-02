@@ -12,7 +12,7 @@ export default function Header() {
     <nav className="header">
       <div className="header__logo">
         <Link to="/" className="header__h1">
-          DID You Eat?
+          Food GO
         </Link>
       </div>
       <div className="header__button">
