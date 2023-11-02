@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/navermaps": "^3.7.2",
     "buffer": "^6.0.3",
     "eslint": "^8.50.0",
     "eslint-config-airbnb": "^19.0.4",

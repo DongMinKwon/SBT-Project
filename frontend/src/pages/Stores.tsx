@@ -18,7 +18,7 @@ export default function Stores() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken) navigate('/admin');
+    if (!accessToken) navigate('/login');
     axios
       .get(`/stores/${account}`)
       .then((e) => {
