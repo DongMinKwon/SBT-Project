@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import LandingLogin from './pages/LandingLogin';
 import Stores from './pages/Stores';
 import CreateStore from './pages/CreateStore';
+import StoreDetail from './pages/StoreDetail';
 
 if (process.env.NODE_ENV === 'production') {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: 'stores',
         element: <Stores />,
+      },
+      {
+        path: 'stores/:id',
+        element: <StoreDetail />,
       },
       {
         path: 'create-store',

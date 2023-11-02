@@ -1,7 +1,7 @@
 // Copyright (C) 2023 Intel Corporation
 // SPDX-License-Identifier: MIT
 import axios from 'axios';
-import { Image, Store } from '@/pages/CreateStore';
+import { Image, CreateStoreData } from '@/pages/CreateStore';
 
 export interface Metadata {
   name: string;
@@ -15,7 +15,7 @@ export interface Metadata {
 
 export const sendFileToIPFS = async (
   image: Image,
-  store: Store,
+  store: CreateStoreData,
   coordX: number,
   coordY: number,
 ) => {

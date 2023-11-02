@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 import React from 'react';
-import { Store } from '@/pages/CreateStore';
+import { CreateStoreData } from '@/pages/CreateStore';
 
 export const mapOptions: naver.maps.MapOptions = {
   mapTypeControl: true,
@@ -97,7 +97,7 @@ export function searchCoordinateToAddress(
   infoWindow: naver.maps.InfoWindow,
   marker: naver.maps.Marker,
   coord: naver.maps.Coord,
-  setStore: React.Dispatch<React.SetStateAction<Store>>,
+  setStore: React.Dispatch<React.SetStateAction<CreateStoreData>>,
 ) {
   naver.maps.Service.reverseGeocode(
     {
@@ -160,7 +160,7 @@ export function searchAddressToCoordinate(
   infoWindow: naver.maps.InfoWindow,
   marker: naver.maps.Marker,
   address: any,
-  setStore: React.Dispatch<React.SetStateAction<Store>>,
+  setStore: React.Dispatch<React.SetStateAction<CreateStoreData>>,
 ) {
   naver.maps.Service.geocode(
     {

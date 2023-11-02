@@ -4,7 +4,31 @@
 import axios from 'axios';
 import { Metadata } from '@/utils/ipfs';
 
-export default async function createStore(
+export async function getUserStores(address: string): Promise<any> {
+  let res = null;
+
+  try {
+    res = await axios.get(`/users/${address}/stores`);
+
+    return res?.data;
+  } catch (err) {
+    throw new Error('Failed to get Stores');
+  }
+}
+
+export async function getStore(id: number): Promise<any> {
+  let res = null;
+
+  try {
+    res = await axios.get(`/stores/${id}`);
+
+    return res?.data;
+  } catch (err) {
+    throw new Error('Failed to get Store');
+  }
+}
+
+export async function createStore(
   metaURI: string,
   metaData: Metadata,
   account: string,

@@ -10,6 +10,7 @@ CREATE TABLE "Store" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "shop_name" TEXT NOT NULL,
     "meta_uri" TEXT NOT NULL,
+    "image_uri" TEXT NOT NULL,
     "coord" TEXT NOT NULL DEFAULT '[]',
     "location" TEXT NOT NULL,
     "owner_id" TEXT NOT NULL,
