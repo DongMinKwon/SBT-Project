@@ -1,0 +1,9 @@
+{
+  "name": "sbt_test",
+  "description": "this is test",
+  "image": "https://aqua-worried-lark-594.mypinata.cloud/ipfs/QmTjCHqk2rh81QGb2DW6VzuCYfeuBSKfvww781f74RTfvv",
+  "attributes": {
+    "location": "Seoul",
+    "coord": "[37.5665, 126.9780]"
+  }
+}

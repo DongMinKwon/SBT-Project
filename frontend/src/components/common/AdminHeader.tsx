@@ -8,8 +8,6 @@ import useLogout from '@/utils/useLogout';
 export default function AdminHeader() {
   const [accessToken, logout] = useLogout();
 
-  console.log(accessToken);
-
   return (
     <nav className="admin-header">
       <div className="admin-header__container">

@@ -30,7 +30,6 @@ export class AuthService {
     }
 
     const accessToken = this.jwtService.sign({ address });
-    console.log(accessToken);
     return res.status(200).json({ accessToken });
   }
 }

@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT
 
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import './CreateStore.scss';
@@ -11,28 +12,38 @@ import {
   searchAddressToCoordinate,
   searchCoordinateToAddress,
 } from '@/utils/maps';
+import { Metadata, sendFileToIPFS } from '@/utils/ipfs';
+import LoadingModal from '@/components/common/LoadingModal';
+import loginState from '@/recoil/atoms/LoginState';
+import createStore from '@/apis/store';
 
+export interface Image {
+  imageFile: string;
+  previewURL: string;
+}
 export interface Store {
   name: string;
   address: string;
-  detail_address: string;
 }
 
 export default function CreateStore() {
+  const [isLoading, setIsLoading] = useState(false);
+  const account = useRecoilValue(loginState.account);
   const [image, setImage] = useState({
-    image_file: '',
-    preview_URL: '',
+    imageFile: '',
+    previewURL: '',
   });
   const [store, setStore] = useState<Store>({
     name: '',
     address: '',
-    detail_address: '',
   });
+  const navigate = useNavigate();
   const map = useRef<null | naver.maps.Map>(null);
   const marker = useRef<null | naver.maps.Marker>(null);
   const infoWindow = useRef<null | naver.maps.InfoWindow>(null);
 
   useEffect(() => {
+    // pinataTest();
     const mapDiv = document.getElementById('create-store__map') as HTMLElement;
     map.current = new naver.maps.Map(mapDiv, mapOptions);
     marker.current = new naver.maps.Marker({
@@ -79,6 +90,23 @@ export default function CreateStore() {
     }));
   };
 
+  const handleImgInputChange = (e: any) => {
+    const newImageFile = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append('newImageFile', newImageFile);
+
+    if (newImageFile) {
+      // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
+      URL.revokeObjectURL(image.previewURL);
+      const previewURL = URL.createObjectURL(newImageFile);
+      setImage({
+        imageFile: newImageFile,
+        previewURL,
+      });
+    }
+  };
+
   const handleAddressKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       searchAddressToCoordinate(
@@ -91,24 +119,66 @@ export default function CreateStore() {
     }
   };
 
+  const handleCreate = async () => {
+    if (!store.name) {
+      alert('please enter the store name!');
+      return;
+    }
+    if (!store.address) {
+      alert('please enter the store address!');
+      return;
+    }
+    if (!image.imageFile) {
+      alert('please upload store image');
+      return;
+    }
+    setIsLoading(true);
+
+    try {
+      const position = marker.current?.getPosition();
+      const res = await sendFileToIPFS(
+        image,
+        store,
+        position?.x as number,
+        position?.y as number,
+      );
+
+      const resCreate = await createStore(
+        res?.metaURI as string,
+        res?.metaData as Metadata,
+        account,
+      );
+
+      if (resCreate.status === 'fail') {
+        alert('failed to create store');
+        throw new Error('failed to create store');
+      }
+      setIsLoading(false);
+
+      // navigate('/admin/stores');
+    } catch (err) {
+      setIsLoading(false);
+      console.error(err);
+    }
+  };
+
   return (
     <div className="create-store">
-      {/* {isLoading && <LoadingModal />} */}
+      {isLoading && <LoadingModal />}
       <AdminPageHeader>Store SBT</AdminPageHeader>
       <div className="create-store__body">
-        <div className="create-store__title">
-          <h1>Create Store SBT</h1>
-          <p>
-            You can use every service with just One Store SBT.
-            <br />
-            Do You Already Have Store SBT? &nbsp;
-            <Link to="/admin/stores">
-              <span className="create-store__link"> Go to Store List ↘</span>
-            </Link>
-          </p>
-        </div>
-
         <div className="create-store__fieldset-container">
+          <div className="create-store__title">
+            <h1>Create Store SBT</h1>
+            <p>
+              You can use every service with just One Store SBT.
+              <br />
+              Do You Already Have Store SBT? &nbsp;
+              <Link to="/admin/stores">
+                <span className="create-store__link"> Go to Store List ↘</span>
+              </Link>
+            </p>
+          </div>
           <fieldset className="create-store__fieldset">
             <div className="input-area">
               <input
@@ -179,15 +249,15 @@ export default function CreateStore() {
                     accept="image/*"
                     name="post_img"
                     className="createpost__img-input"
-                    // onChange={handleImgInputChange}
+                    onChange={handleImgInputChange}
                     // onClick={(e) => (e.target.value = null)}
                     id="img_file"
                   />
                 </label>
               </div>
-              {!!image.preview_URL && (
+              {!!image.previewURL && (
                 <img
-                  src={image.preview_URL}
+                  src={image.previewURL}
                   alt="miler"
                   width={250}
                   height={250}
@@ -208,7 +278,7 @@ export default function CreateStore() {
           <fieldset className="create-store__fieldset">
             <div
               role="presentation"
-              // onClick={handleCreate}
+              onClick={handleCreate}
               className="classic-button yellow-color  margin-auto"
             >
               Create

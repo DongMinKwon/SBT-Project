@@ -29,7 +29,6 @@ export default function Stores() {
       });
   }, []);
 
-  console.log(storeData);
   return (
     <>
       <AdminPageHeader>My Store</AdminPageHeader>

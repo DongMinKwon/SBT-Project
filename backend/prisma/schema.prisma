@@ -11,12 +11,11 @@ datasource db {
 }
 
 model User {
-  id          Int @id @default(autoincrement())
-  address     String @unique
+  address     String @id
   nickname    String @default("noname")
   email       String @default("")
-  stores Store[]
-  tokens Token[]
+  stores      Store[]
+  tokens      Token[]
 }
 
 model Store {
@@ -24,10 +23,10 @@ model Store {
   shop_name   String
   meta_uri    String
   coord       String @default("[]")
-  location    String @default("")
-  owner       User @relation(fields: [owner_id], references: [id])
-  owner_id    Int @unique
-  token       Token?
+  location    String
+  owner       User @relation(fields: [owner_id], references: [address])
+  owner_id    String
+  tokens      Token[]
 }
 
 model Token {
@@ -35,6 +34,6 @@ model Token {
   created_at  String
   store       Store @relation(fields: [store_id], references: [id])
   store_id    Int @unique
-  user        User @relation(fields: [user_id], references: [id])
-  user_id     Int
+  user        User @relation(fields: [user_id], references: [address])
+  user_id     String
 }
