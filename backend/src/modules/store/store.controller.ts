@@ -20,9 +20,12 @@ import { CreateStoreDTO } from 'src/dto/store.dto';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
-  @Get(':id')
-  getStore(@Param('id') id: string, @Res() res: Response): Promise<Response> {
-    return this.storeService.getStore(+id, res);
+  @Get(':store_id')
+  getStore(
+    @Param('store_id') storeId: string,
+    @Res() res: Response,
+  ): Promise<Response> {
+    return this.storeService.getStore(storeId, res);
   }
 
   @Post()

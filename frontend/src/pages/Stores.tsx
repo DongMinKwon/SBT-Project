@@ -1,7 +1,6 @@
 // Copyright (C) 2023 Intel Corporation
 // SPDX-License-Identifier: MIT
 
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ import AdminCollection from '@/components/admin/AdminCollection';
 import { getUserStores } from '@/apis/store';
 
 export interface Store {
-  id: number;
   shop_name: string;
   meta_uri: string;
   image_uri: string;
@@ -50,7 +48,7 @@ export default function Stores() {
       <h2 className="semi-title">List</h2>
       <div className="admin-store__collection-list">
         {storeData.map((store: Store) => (
-          <Link key={store.id} to={`/admin/stores/${store.id}`}>
+          <Link key={store.shop_name} to={`/admin/stores/${store.shop_name}`}>
             <AdminCollection imgUrl={store.image_uri} />
           </Link>
         ))}
