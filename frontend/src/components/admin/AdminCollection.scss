@@ -1,0 +1,17 @@
+// Copyright (C) 2023 Intel Corporation
+// SPDX-License-Identifier: MIT
+
+@import '@/base.scss';
+
+.admin-collection {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  box-shadow: 10px 10px rgba(#daff5b, 0.7);
+  cursor: pointer;
+  & > img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+}

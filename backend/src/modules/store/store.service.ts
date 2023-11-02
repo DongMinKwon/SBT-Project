@@ -11,27 +11,25 @@ import { ChainService } from '../chain/chain.service';
 export class StoreService {
   constructor(private readonly chainService: ChainService) {}
 
-  async getStores(address: string, res: Response): Promise<Response> {
-    let storeList;
+  async getStore(id: number, res: Response): Promise<Response> {
+    let store;
     try {
-      storeList = await prisma.store.findMany({
+      store = await prisma.store.findUnique({
         where: {
-          owner: {
-            address: address,
-          },
+          id: id,
         },
       });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
 
-    return res.status(200).json({ storeList });
+    return res.status(200).json({ store });
   }
 
   async createStores(data: CreateStoreDTO, res: Response): Promise<Response> {
     const { metaURI, metaData, receiver } = data;
 
-    const { name } = metaData;
+    const { name, image } = metaData;
     const { coord, location } = metaData.attributes;
 
     try {
@@ -41,20 +39,17 @@ export class StoreService {
         metaURI,
       );
 
-      console.log(receiver);
-
       if (result) {
         const store = await prisma.store.create({
           data: {
             shop_name: name,
             meta_uri: metaURI,
+            image_uri: image,
             coord: coord,
             location: location,
             owner_id: receiver,
           },
         });
-
-        console.log(store);
 
         return res.status(200).json({ status: 'success', store });
       }

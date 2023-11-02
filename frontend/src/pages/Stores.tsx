@@ -10,6 +10,18 @@ import loginState from '@/recoil/atoms/LoginState';
 // import AdminLayout from '@/components/admin/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import './Stores.scss';
+import AdminCollection from '@/components/admin/AdminCollection';
+import { getUserStores } from '@/apis/store';
+
+export interface Store {
+  id: number;
+  shop_name: string;
+  meta_uri: string;
+  image_uri: string;
+  coord: string;
+  location: string;
+  owner_id: string;
+}
 
 export default function Stores() {
   const [storeData, setStoreData] = useState([]);
@@ -18,27 +30,30 @@ export default function Stores() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken) navigate('/login');
-    axios
-      .get(`/stores/${account}`)
-      .then((e) => {
-        if (e.data) setStoreData(e.data);
-      })
-      .catch((err) => {
-        console.warn(`failed to Load data..`, err);
-      });
-  }, []);
+    async function fetchData() {
+      const res = await getUserStores(account);
+      const { storeList } = res;
+      setStoreData(storeList);
+    }
+
+    if (!accessToken || !account) navigate('/login');
+    try {
+      fetchData();
+    } catch (err) {
+      console.warn(err);
+    }
+  }, [account, accessToken]);
 
   return (
     <>
       <AdminPageHeader>My Store</AdminPageHeader>
       <h2 className="semi-title">List</h2>
       <div className="admin-store__collection-list">
-        {/* {storeData.map((store) => (
-          <Link key={store.id} to={`/admin/store/${store.shop_name}`}>
-            <AdminCollection imgUrl={store.collection_uri} />
+        {storeData.map((store: Store) => (
+          <Link key={store.id} to={`/admin/stores/${store.id}`}>
+            <AdminCollection imgUrl={store.image_uri} />
           </Link>
-        ))} */}
+        ))}
         <Link to="/admin/create-store">
           <div className="admin-store__create-collection">
             <span>Create New Store Collection!</span>

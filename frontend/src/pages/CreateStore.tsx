@@ -15,13 +15,13 @@ import {
 import { Metadata, sendFileToIPFS } from '@/utils/ipfs';
 import LoadingModal from '@/components/common/LoadingModal';
 import loginState from '@/recoil/atoms/LoginState';
-import createStore from '@/apis/store';
+import { createStore } from '@/apis/store';
 
 export interface Image {
   imageFile: string;
   previewURL: string;
 }
-export interface Store {
+export interface CreateStoreData {
   name: string;
   address: string;
 }
@@ -33,7 +33,7 @@ export default function CreateStore() {
     imageFile: '',
     previewURL: '',
   });
-  const [store, setStore] = useState<Store>({
+  const [store, setStore] = useState<CreateStoreData>({
     name: '',
     address: '',
   });
@@ -155,7 +155,7 @@ export default function CreateStore() {
       }
       setIsLoading(false);
 
-      // navigate('/admin/stores');
+      navigate('/admin/stores');
     } catch (err) {
       setIsLoading(false);
       console.error(err);
