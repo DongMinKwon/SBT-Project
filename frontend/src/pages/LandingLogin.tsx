@@ -64,7 +64,7 @@ export default function LandingLogin() {
                   type="button"
                   className="login-button"
                 >
-                  <img alt="google" src="/images/googleLogo.png" />
+                  <img alt="google" src="/images/metamask_logo.png" />
                   <span className="login-button__word">
                     Login with Metamask
                   </span>
