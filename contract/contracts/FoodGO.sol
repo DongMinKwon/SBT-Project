@@ -9,12 +9,12 @@ import "../node_modules/@klaytn/contracts/token/ERC721/extensions/ERC721URIStora
 import "./Sbt.sol";
 import "./Pausable.sol";
 
-contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
+contract FoodGO is ERC721URIStorage, Ownable, Sbt, Pausable {
   //utils
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
-  constructor() ERC721("Poap", "DYE") {}
+  constructor() ERC721("FoodGO", "DYE") {}
 
   //events
   event CreateCollection(string collectionName, string metaURI);
@@ -60,7 +60,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
     string memory owner,
     string memory metaURI
   ) public onlyOwner whenNotPaused {
-    require(!_existsCol(collectionName), "Poap: collection already created");
+    require(!_existsCol(collectionName), "SBT : collection already created");
 
     _collectionOwners[collectionName] = owner;
     _collectionMinted[collectionName] = 0;
@@ -244,7 +244,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
    * @dev Modifier to confirm token exist
    */
   modifier existToken(uint256 tokenId) {
-    require(_exists(tokenId), "Poap: nonexistent token");
+    require(_exists(tokenId), "SBT: nonexistent token");
     _;
   }
 
@@ -252,7 +252,7 @@ contract Poap is ERC721URIStorage, Ownable, Sbt, Pausable {
    * @dev Modifier to confirm collection exist
    */
   modifier existCollection(string memory collectionName) {
-    require(_existsCol(collectionName), "Poap: nonexistent collection");
+    require(_existsCol(collectionName), "SBT: nonexistent collection");
     _;
   }
 }
