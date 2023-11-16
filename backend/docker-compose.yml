@@ -15,9 +15,7 @@ services:
   foodgo:
     depends_on:
       - mysql
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: bronzefist/fooddb:latest
     ports:
       - "3001:3001"
       - "5555:5555"
