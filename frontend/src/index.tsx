@@ -5,6 +5,7 @@ import '@/Global.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import axios from 'axios';
 import Home from '@/pages/Home';
 import ErrorPage from '@/pages/ErrorPage';
 import AdminLayout from './components/admin/AdminLayout';
@@ -23,6 +24,9 @@ if (process.env.NODE_ENV === 'production') {
   console.warn = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   // console.error = () => {};
+
+  axios.defaults.baseURL =
+    'http://ec2-43-201-77-177.ap-northeast-2.compute.amazonaws.com:3001/api';
 }
 
 const router = createBrowserRouter([
