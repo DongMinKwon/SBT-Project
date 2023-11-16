@@ -12,12 +12,13 @@ services:
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: 1234
 
-  api_server:
+  foodgo:
     depends_on:
       - mysql
+    image: bronzefist/fooddb:latest
     build:
       context: .
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile
     ports:
       - "3001:3001"
       - "5555:5555"
